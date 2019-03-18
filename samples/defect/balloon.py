@@ -66,7 +66,7 @@ class DefectConfig(Config):
     IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
-    NUM_CLASSES = 2 + 1  # Background + Defect
+    NUM_CLASSES = 1 + 1  # Background + Defect
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 100
