@@ -41,7 +41,7 @@ ROOT_DIR = os.path.abspath("../../")
 sys.path.append(ROOT_DIR)  # To find local version of the library
 from mrcnn.config import Config
 from mrcnn import model as modellib, utils
-
+import imgaug
 # Path to trained weights file
 COCO_WEIGHTS_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
 
@@ -191,11 +191,13 @@ def train(model):
     # Since we're using a very small dataset, and starting from
     # COCO trained weights, we don't need to train too long. Also,
     # no need to train all layers, just the heads should do it.
+
+    augmentation = imgaug.augmenters.Sequential([imgaug.augmenters.Fliplr(0.8),imgaug.augmenters.Flipud(0.6)])
     print("Training network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=30,
-                layers='heads')
+                epochs=80,
+                layers='heads',augmentation = augmentation)
 
 
 def color_splash(image, mask):
